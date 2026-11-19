@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/data/site";
 import Arrow from "./Arrow";
+import { useCart } from "./CartProvider";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -43,26 +44,37 @@ export default function Header() {
           <Link href="/" className="display text-3xl md:text-4xl" aria-label="SABI home" onClick={() => setOpen(false)}>
             SABI
           </Link>
-          <button
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
-            aria-controls="site-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
-            className="group relative flex h-12 w-12 items-center justify-center bg-red transition-colors hover:bg-cream"
-          >
-            <span className="relative block h-4 w-6">
-              {[0, 1, 2].map((i) => (
+          <div className="flex items-stretch gap-2">
+            <BagButton />
+            <button
+              onClick={() => setOpen((o) => !o)}
+              aria-expanded={open}
+              aria-controls="site-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="group flex h-12 items-stretch"
+            >
+              <span className="flex items-center bg-cream px-4 text-ink">
+                <span className="relative block h-[1.1em] overflow-hidden text-sm font-extrabold uppercase leading-[1.1em] tracking-wide">
+                  <span className={`flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${open ? "-translate-y-1/2" : "group-hover:-translate-y-1/2"}`}>
+                    <span>{open ? "Close" : "Menu"}</span>
+                    <span>{open ? "Close" : "Menu"}</span>
+                  </span>
+                </span>
+              </span>
+              <span className="relative flex w-12 items-center justify-center bg-red transition-colors group-hover:bg-[#c92415]">
                 <span
-                  key={i}
-                  className={`absolute left-0 h-[2.5px] w-full bg-cream transition-all duration-300 group-hover:bg-ink ${
-                    i === 0 ? (open ? "top-1/2 -translate-y-1/2 rotate-45" : "top-0") : ""
-                  } ${i === 1 ? (open ? "top-1/2 -translate-y-1/2 opacity-0" : "top-1/2 -translate-y-1/2") : ""} ${
-                    i === 2 ? (open ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-0") : ""
+                  className={`absolute h-[2.5px] bg-cream transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+                    open ? "w-6 rotate-45" : "w-6 -translate-y-[4px] group-hover:w-4 group-hover:-translate-x-1"
                   }`}
                 />
-              ))}
-            </span>
-          </button>
+                <span
+                  className={`absolute h-[2.5px] bg-cream transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+                    open ? "w-6 -rotate-45" : "w-6 translate-y-[4px] group-hover:w-4 group-hover:translate-x-1"
+                  }`}
+                />
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -109,5 +121,26 @@ export default function Header() {
         </div>
       </div>
     </>
+  );
+}
+
+function BagButton() {
+  const { count, setOpen } = useCart();
+  return (
+    <button
+      onClick={() => setOpen(true)}
+      aria-label={`Open bag, ${count} ${count === 1 ? "item" : "items"}`}
+      className="group flex h-12 items-stretch border border-cream/40 bg-ink/40 backdrop-blur transition-colors hover:border-cream"
+    >
+      <span className="flex items-center gap-2 px-3 text-sm font-extrabold uppercase tracking-wide sm:px-4">
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+          <path d="M5 8h14l-1 13H6L5 8Z M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" strokeWidth="2" />
+        </svg>
+        <span className="hidden sm:inline">Bag</span>
+      </span>
+      <span className={`flex min-w-10 items-center justify-center px-2 text-sm font-extrabold transition-colors ${count ? "bg-red text-cream" : "bg-cream/10"}`}>
+        {count}
+      </span>
+    </button>
   );
 }

@@ -34,3 +34,10 @@ export const faqs = [
     a: "Yes. Our store is in Lagos. DM us for the address and opening hours before you visit.",
   },
 ];
+
+// Delivery options shown at checkout. Fees are PLACEHOLDERS in Naira: set your real fees.
+export const deliveryOptions = [
+  { id: "lagos", label: "Delivery within Lagos", fee: 3000 },
+  { id: "nigeria", label: "Delivery outside Lagos", fee: 6000 },
+  { id: "pickup", label: "Pick up at the Lagos store", fee: 0 },
+];

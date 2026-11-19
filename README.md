@@ -26,6 +26,19 @@ Then open http://localhost:3000.
 - Instagram links, location, FAQs: `data/site.js`
 - Photos and videos: `public/media/`
 
-## Ordering
+## Cart and checkout (Paystack)
 
-There is no cart or payment. "Order on Instagram" copies an order message (product, colour, size, quantity) to the clipboard and opens a DM with @_sabilifestyle.
+- The bag lives in the browser (localStorage). "Add to bag" on a product page opens the bag drawer.
+- `/checkout` collects contact and delivery details. The server (`app/api/checkout/route.js`) re-prices the bag from `data/products.js`, so customers can't change the amount, then starts a Paystack transaction and sends the customer to Paystack's payment page.
+- After paying, Paystack returns the customer to `/checkout/success`, which verifies the payment with Paystack before showing "Order placed".
+- Each order's items, size, phone, delivery option and address appear on the transaction in your Paystack dashboard.
+
+### Switch payments on
+
+1. In Paystack, open **Settings → API Keys & Webhooks** and copy the **secret key** (`sk_test_...` for testing, `sk_live_...` for real payments).
+2. In Vercel, open the project, then **Settings → Environment Variables**, and add `PAYSTACK_SECRET_KEY` with that key.
+3. Redeploy. Until the key is set, checkout shows "Payments aren't switched on yet".
+
+For local development, copy `.env.example` to `.env.local` and fill in the key.
+
+Delivery fees are placeholders in `data/site.js` (`deliveryOptions`).
