@@ -9,6 +9,7 @@ const azeret = Azeret_Mono({ subsets: ["latin"], weight: ["400", "500", "700", "
 const serif = Source_Serif_4({ subsets: ["latin"], style: ["italic"], weight: ["500", "600", "700"], variable: "--font-serif4" });
 
 export const metadata = {
+  metadataBase: new URL("https://sabilifestyle.vercel.app"),
   title: { default: "SABI LIFESTYLE — For those who know", template: "%s — SABI LIFESTYLE" },
   description: "SABI LIFESTYLE is a clothing brand from Lagos, Nigeria. Tees, hoodies, tracksuits and more, for those who know.",
 };
