@@ -5,6 +5,7 @@ import { site } from "@/data/site";
 import SectionHead from "@/components/SectionHead";
 import ProductCard from "@/components/ProductCard";
 import Arrow from "@/components/Arrow";
+import Hero from "@/components/Hero";
 
 const why = [
   { title: "Made in Lagos", sub: "Designed at home", body: "Every piece is designed by the Sabi team in Lagos and made in small runs." },
@@ -29,34 +30,7 @@ export default function Home() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="grain relative grid min-h-[100svh] grid-cols-1 md:grid-cols-[1fr_minmax(280px,30%)]">
-        <div className="relative min-h-[80svh] overflow-hidden">
-          <Image src="/media/duo-tracksuit-red.jpg" alt="Two models in the black and red SABI tracksuit" fill priority sizes="(min-width: 768px) 70vw, 100vw" className="object-cover object-[50%_30%]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30" />
-          <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
-            <p className="label mb-3 font-bold">{site.tagline} — {site.location}</p>
-            <h1 className="display text-[17vw] md:text-[9vw]">
-              Wear it like<br />
-              you <span className="accent text-red">sabi</span>
-            </h1>
-          </div>
-        </div>
-        <Link href="/shop" className="group relative hidden flex-col overflow-hidden border-l-4 border-red bg-ink md:flex">
-          <div className="relative flex-1">
-            <Image src="/media/stripe-shirt-flat.jpg" alt="" fill sizes="30vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <div className="relative flex-1">
-            <Image src="/media/hoodie-sabilifestyle.jpg" alt="" fill sizes="30vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <span className="display flex items-center justify-between bg-red px-5 py-6 text-4xl transition-colors group-hover:bg-cream group-hover:text-ink lg:text-5xl">
-            Shop now <Arrow />
-          </span>
-        </Link>
-        <Link href="/shop" className="display flex items-center justify-between bg-red px-4 py-5 text-3xl md:hidden">
-          Shop now <Arrow />
-        </Link>
-      </section>
+      <Hero />
 
       {/* ABOUT over video */}
       <section className="relative flex min-h-[90svh] items-center justify-center overflow-hidden">

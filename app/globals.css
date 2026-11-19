@@ -88,3 +88,52 @@ body {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Preloader */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+.preloader-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-ink);
+  color: var(--color-cream);
+  pointer-events: auto;
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1) 0.15s;
+}
+.preloader-wipe {
+  position: absolute;
+  inset: 0;
+  background: var(--color-red);
+  transform: translateY(100%);
+}
+.preloader.is-exit .preloader-wipe {
+  animation: wipe 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+.preloader.is-exit .preloader-panel {
+  transform: translateY(-100%);
+}
+@keyframes wipe {
+  0% { transform: translateY(100%); }
+  45% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+.preloader-letter {
+  display: inline-block;
+  transform: translateY(105%);
+  animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes rise {
+  to { transform: translateY(0); }
+}
+/* Already seen this session: never paint it */
+.seen-loader .preloader { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-letter { animation: none; transform: none; }
+}
